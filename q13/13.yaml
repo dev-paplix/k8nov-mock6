@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: exampleorg
+  name: exampleorg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: exampleorg
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: exampleorg
+    spec:
+      containers:
+      - image: httpd:bookworm
+        name: httpd
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: exampleorg-service
+spec:
+  selector:
+    app: exampleorg
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: exampleorg-ingress
+spec:
+  rules:
+  - host: "example.org"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: exampleorg-service
+            port:
+              number: 80
