@@ -1,0 +1,2 @@
+kubectl get configmap -n kube-system
+kubectl describe configmap -n kube-system > /home/coredns.txt

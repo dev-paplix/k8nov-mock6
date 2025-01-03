@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-multi
+  namespace: multi
+spec:
+  containers:
+  - name: cotainer1
+    image: nginx:latest
+  - name: cotainer2
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "Hello" && sleep 4800']
