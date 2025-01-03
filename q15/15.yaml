@@ -1,0 +1,32 @@
+kubectl create cm mysql-config --from-literal=MYSQL_DATABASE=test --from-literal=MYSQL_USER=admin
+kubectl create secret generic mysql-secret --from-literal=MYSQL_ROOT_PASSWORD=password --from-literal=MYSQL_PASSWORD=password
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: null
+  labels:
+    app: MySql
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: MySql
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: MySql
+    spec:
+      containers:
+        - image: mysql:8.0.40-debian
+          name: mysql
+          envFrom:
+            - configMapRef:
+                name: mysql-config
+            - secretRef:
+                name: mysql-secret
+          resources: {}
+status: {}
+c

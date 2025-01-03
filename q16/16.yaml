@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: apache
+  name: apache
+  namespace: web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: apache
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: apache
+    spec:
+      containers:
+        - image: httpd:2.4.54
+          name: httpd
+          resources: {}
+status: {}
+
+---
+kubectl set image deployment.apps/apache httpd=httpd:alpine -n web
+kubectl scale --replicas=5 deployment.apps/apache -n web
