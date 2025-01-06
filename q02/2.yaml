@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: myproject
+  name: myproject
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myproject
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: myproject
+    spec:
+      containers:
+        - image: nginx:1.16
+          name: nginx
+          resources: {}
+status: {}
+
+---
+kubectl set image deployment.apps/myproject nginx=nginx:1.17

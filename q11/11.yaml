@@ -1,0 +1,1 @@
+kubectl get cm coredns -n kube-system -o yaml > /home/coredns.txt

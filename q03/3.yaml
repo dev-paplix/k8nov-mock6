@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: my-deployment
+  name: my-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-deployment
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: my-deployment
+    spec:
+      containers:
+        - image: nginx:1.16
+          name: nginx
+          resources: {}
+status: {}
+---
+kubectl autoscale deployment.apps/my-deployment --min=3 --max=5 --cpu-percent=80

@@ -1,0 +1,19 @@
+kubectl label node node01 disk=ssd
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: pod
+  name: pod
+spec:
+  containers:
+    - image: nginx
+      name: nginx-jaud00401
+      resources: {}
+  nodeSelector:
+    disk: ssd
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
